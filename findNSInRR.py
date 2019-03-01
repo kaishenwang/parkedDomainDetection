@@ -12,7 +12,7 @@ def writeResult(fName, d):
             f.write(k + ':')
             for idx in range(len(v)-1):
                 f.write(v[idx] + ',')
-            f.write(v[len[v]-1] + '\n')
+            f.write(v[-1] + '\n')
 
 keyStr = sys.argv[2]
 keys = keyStr.split(',')
@@ -70,5 +70,5 @@ print("Other NS Count:" + str(otherNSCount))
 print("Token Domain Count:" + str(tokenDomains))
 print("Other Domain Count:" + str(otherDomains))
 
-writeResult('tokenNS.txt', tokenNS)
-writeResult('otherNS.txt', otherNS)
+writeResult('tokenNS.txt', sorted_token)
+writeResult('otherNS.txt', sorted_others)
