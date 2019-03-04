@@ -2,6 +2,7 @@ import sys
 import re
 from collections import defaultdict
 # python findNSInRR.py fileName strName banner.json
+#python findNSInRR.py /data1/nsrg/kwang40/fullData/2019-03-03/RR.json sell,park,expired /data1/nsrg/kwang40/fullData/2019-03-03/banners.json > result.txt
 
 def validChar(c):
     return c.isalnum() or c == '.' or c == '-'
@@ -16,12 +17,11 @@ def writeResult(fName, d):
 
 # build a dict of domains get valid http data
 domainsWithContent = {}
-with open(sys.argv[3]) as f:
-    lines = f.readlines()
-for line in lines:
-    domainNameStart = line.find('domain') + 9
-    domainNameEnd = line.find('\"', domainNameStart)
-    domainsWithContent[line[domainNameStart:domainNameEnd]] = True
+with open(sys.argv[3]) as infile:
+    for line in infile:
+        domainNameStart = line.find('domain') + 9
+        domainNameEnd = line.find('\"', domainNameStart)
+        domainsWithContent[line[domainNameStart:domainNameEnd]] = True
 
 
 keyStr = sys.argv[2]
