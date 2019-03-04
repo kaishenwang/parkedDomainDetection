@@ -19,9 +19,7 @@ def writeResult(fName, d):
 domainsWithContent = {}
 with open(sys.argv[3]) as infile:
     for line in infile:
-        domainNameStart = line.find('domain') + 9
-        domainNameEnd = line.find('\"', domainNameStart)
-        domainsWithContent[line[domainNameStart:domainNameEnd]] = True
+        domainsWithContent[line.rstrip()] = True
 
 
 print ('Finish reading banner file.')
