@@ -24,6 +24,7 @@ with open(sys.argv[3]) as infile:
         domainsWithContent[line[domainNameStart:domainNameEnd]] = True
 
 
+print ('Finish reading banner file.')
 keyStr = sys.argv[2]
 keys = keyStr.split(',')
 
