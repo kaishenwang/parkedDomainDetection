@@ -59,5 +59,5 @@ for k,v in IDStrs.items():
     IDStrs[k] = list(set(v))
 
 sorted_list = sorted(IDs.items(), key=lambda x: len(x[1]), reverse=True)
-sortedStr_list = sorted(IDs.items(), key=lambda x: len(x[1]), reverse=True)
+sortedStr_list = sorted(IDStrs.items(), key=lambda x: len(x[1]), reverse=True)
 writeResult('oldIDMatchResult.txt', sorted_list, sortedStr_list)
