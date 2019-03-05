@@ -1,5 +1,6 @@
 import re
 from collections import defaultdict
+import sys
 
 URLs = defaultdict(list)
 endingChars = [')', '\"', ' ', '=', '\\', '}']
