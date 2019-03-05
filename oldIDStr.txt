@@ -1,6 +1,6 @@
-<framesrc="http:\/\/ww[0−9]{1,2}\.
+<framesrc="http:/\/\ww[0−9]{1,2}\.
 --gpup\(http:/\/\ww[0−9]{1,2}\.
-'resultsPageBaseUrl':'http:\/\/ww[0−9]{1,2}\.
+'resultsPageBaseUrl':'http:/\/\ww[0−9]{1,2}\.
 \$.ajax\(\{url:'http:\/\/ww[0−9]{1,2}\.
 http:\/\/05000[0−9]{1}.voodoo.com
 elm.setAttribute("src","http://contextual.media.net/dmp
