@@ -2,7 +2,7 @@ import sys
 import re
 from collections import defaultdict
 # python findNSInRR.py fileName strName banner.json
-#python findNSInRR.py /data1/nsrg/kwang40/fullData/2019-03-03/RR.json sell,park,expired /data1/nsrg/kwang40/fullData/2019-03-03/banners.json > result.txt
+#python findNSInRR.py /data1/nsrg/kwang40/fullData/2019-03-03/RR.json sell,park,expired validDomains.txt > result.txt
 
 def validChar(c):
     return c.isalnum() or c == '.' or c == '-'
