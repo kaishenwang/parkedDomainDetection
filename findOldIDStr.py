@@ -5,6 +5,7 @@ import re
 IDs = {}
 IDStrs = {}
 errorStr = '\"http\":{}},\"error\":'
+uniqueDomains = {}
 def parse(page):
     if page.find(errorStr) != -1:
         return
@@ -14,12 +15,15 @@ def parse(page):
     for ID in IDs.keys():
         if re.match(ID, page, flags=0) != None:
             IDs[ID].append(domainName)
+            uniqueDomains[domainName] = True
     for ID in IDStrs.keys():
         if page.find(ID) != -1:
             IDStrs[ID].append(domainName)
+            uniqueDomains[domainName] = True
 
 def writeResult(fName, d, d2):
     with open(fName, 'w') as f:
+        f.write(str(len(uniqueDomains)) + '\n')
         for k,v in d:
             f.write(k + '(' + str(len(v)) + '):' )
             for idx in range(len(v)-1):
