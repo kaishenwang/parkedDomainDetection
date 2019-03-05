@@ -21,10 +21,10 @@ def parse(page):
     domainNameEnd = page.find('\"', domainNameStart)
     domainName = page[domainNameStart : domainNameEnd]
     for beginStr in ['http://','https://']:
-        urlIdxs = find_all(beginStr, page)
+        urlIdxs = list(find_all(beginStr, page))
         for urlIdx in urlIdxs:
             for i in range(7, 30):
-                endIdx = url + i
+                endIdx = urlIdx + i
                 if endIdx >= len(page):
                     break
                 if page[endIdx] in endingChars:
