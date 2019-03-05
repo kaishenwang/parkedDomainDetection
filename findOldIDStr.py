@@ -24,13 +24,15 @@ def writeResult(fName, d, d2):
             f.write(k + '(' + str(len(v)) + '):' )
             for idx in range(len(v)-1):
                 f.write(v[idx] + ',')
-            f.write(v[-1] + '\n')
-        f.write('\n')    
+            if (len(v) > 0):
+                f.write(v[-1] + '\n')
+        f.write('\n')
         for k,v in d2:
             f.write(k + '(' + str(len(v)) + '):' )
             for idx in range(len(v)-1):
                 f.write(v[idx] + ',')
-            f.write(v[-1] + '\n')
+            if (len(v) > 0):
+                f.write(v[-1] + '\n')
 
 with open (sys.argv[1]) as f:
     lines = f.readlines()
