@@ -9,10 +9,10 @@ with open(nonValidTokenNSFName) as f:
 for line in lines:
     nonValidNS[line.rstrip()] = True
 
-with open(nonValidOtherNSFName) as f:
-    lines = f.readlines()
-for line in lines:
-    nonValidNS[line.rstrip()] = True
+#with open(nonValidOtherNSFName) as f:
+#    lines = f.readlines()
+#for line in lines:
+#    nonValidNS[line.rstrip()] = True
 
 domains = {}
 with open(tokenNSFName) as f:
@@ -39,4 +39,5 @@ for line in lines:
     for domain in domainsList:
         domains[domain] = True
 
-print (len(domains.keys()))
+for domain in domains.keys():
+    print (domain)
