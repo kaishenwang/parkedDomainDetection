@@ -4,6 +4,7 @@ import sys
 
 URLs = defaultdict(list)
 endingChars = [')', '\"', ' ', '=', '\\', '}']
+errorStr = '\"http\":{}},\"error\":'
 
 def parse(page):
     if page.find(errorStr) != -1:
