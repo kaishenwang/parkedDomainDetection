@@ -29,6 +29,7 @@ def writeResult(fName, d):
                 f.write(v[idx] + ',')
             f.write('\n')
 
+singlePage = ''
 with open(sys.argv[1]) as infile:
     for line in infile:
         if line[:7] != '{\"ip\":\"':
