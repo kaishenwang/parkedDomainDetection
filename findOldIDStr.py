@@ -47,7 +47,7 @@ for i in range(5, len(lines)):
     IDStrs[lines[i].rstrip()] = []
 
 singlePage = ''
-with open(sys.argv[1]) as infile:
+with open(sys.argv[2]) as infile:
     for line in infile:
         if line[:7] != '{\"ip\":\"':
             singlePage += line
