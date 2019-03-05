@@ -26,17 +26,15 @@ def writeResult(fName, d, d2):
         f.write(str(len(uniqueDomains)) + '\n')
         for k,v in d:
             f.write(k + '(' + str(len(v)) + '):' )
-            for idx in range(len(v)-1):
+            for idx in range(len(v)):
                 f.write(v[idx] + ',')
-            if (len(v) > 0):
-                f.write(v[-1] + '\n')
+            f.write('\n')
         f.write('\n')
         for k,v in d2:
             f.write(k + '(' + str(len(v)) + '):' )
-            for idx in range(len(v)-1):
+            for idx in range(len(v)):
                 f.write(v[idx] + ',')
-            if (len(v) > 0):
-                f.write(v[-1] + '\n')
+            f.write('\n')
 
 with open (sys.argv[1]) as f:
     lines = f.readlines()
