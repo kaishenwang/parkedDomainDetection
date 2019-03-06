@@ -3,7 +3,7 @@ from collections import defaultdict
 import sys
 
 URLs = defaultdict(list)
-endingChars = [')', '\"', ' ', '=', '\\', '}']
+endingChars = [')', '\"', ' ', '=', '\\', '}', '/']
 errorStr = '\"http\":{}},\"error\":'
 
 def find_all(a_str, sub):
@@ -20,18 +20,18 @@ def parse(line, hostName):
     if line.find(errorStr) != -1:
         return
     for beginStr in ['http://','https://']:
-        urlIdxs = find_all(page, beginStr)
+        urlIdxs = find_all(line, beginStr)
         for urlIdx in urlIdxs:
             endIdx = 0
-            for i in range(7, 30):
+            for i in range(9, 50):
                 endIdx = urlIdx + i
-                if endIdx >= len(page):
+                if endIdx >= len(line):
                     break
-                if page[endIdx] in endingChars:
+                if line[endIdx] in endingChars:
                     break
-            url = page[urlIdx : endIdx]
+            url = line[urlIdx : endIdx]
             if url.find(hostName) == -1:
-                URLs[url].append(domainName)
+                URLs[url].append(hostName)
 
 def writeResult(fName, d):
     with open(fName, 'w') as f:
@@ -44,13 +44,13 @@ def writeResult(fName, d):
 domainName = ''
 with open(sys.argv[1]) as infile:
     for line in infile:
-        if line[:7] != '{\"ip\":\"':
+        if line[:7] == '{\"ip\":\"':
             domainNameStart = line.find('domain') + 9
             domainNameEnd = line.find('\"', domainNameStart)
             domainName = line[domainNameStart : domainNameEnd]
         parse(line, domainName)
 
-
+print(len(URLs))
 for k,v in URLs.items():
     URLs[k] = list(set(v))
 sorted_list = sorted(URLs.items(), key=lambda x: len(x[1]), reverse=True)
