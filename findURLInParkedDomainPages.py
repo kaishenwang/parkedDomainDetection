@@ -16,12 +16,9 @@ def find_all(a_str, sub):
         start += len(sub)
     return res
 
-def parse(page):
-    if page.find(errorStr) != -1:
+def parse(line, hostName):
+    if line.find(errorStr) != -1:
         return
-    domainNameStart = page.find('domain') + 9
-    domainNameEnd = page.find('\"', domainNameStart)
-    domainName = page[domainNameStart : domainNameEnd]
     for beginStr in ['http://','https://']:
         urlIdxs = find_all(page, beginStr)
         for urlIdx in urlIdxs:
@@ -32,7 +29,9 @@ def parse(page):
                     break
                 if page[endIdx] in endingChars:
                     break
-            URLs[page[urlIdx : endIdx]].append(domainName)
+            url = page[urlIdx : endIdx]
+            if url.find(hostName) == -1:
+                URLs[url].append(domainName)
 
 def writeResult(fName, d):
     with open(fName, 'w') as f:
@@ -42,16 +41,15 @@ def writeResult(fName, d):
                 f.write(v[idx] + ',')
             f.write('\n')
 
-singlePage = ''
+domainName = ''
 with open(sys.argv[1]) as infile:
     for line in infile:
         if line[:7] != '{\"ip\":\"':
-            singlePage += line
-        else:
-            parse(singlePage)
-            singlePage = ''
+            domainNameStart = line.find('domain') + 9
+            domainNameEnd = line.find('\"', domainNameStart)
+            domainName = line[domainNameStart : domainNameEnd]
+        parse(line, domainName)
 
-parse(singlePage)
 
 for k,v in URLs.items():
     URLs[k] = list(set(v))
