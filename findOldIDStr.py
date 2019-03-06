@@ -6,20 +6,17 @@ IDs = {}
 IDStrs = {}
 errorStr = '\"http\":{}},\"error\":'
 uniqueDomains = {}
-def parse(page):
-    if page.find(errorStr) != -1:
+def parse(line, domain):
+    if line.find(errorStr) != -1:
         return
-    domainNameStart = page.find('domain') + 9
-    domainNameEnd = page.find('\"', domainNameStart)
-    domainName = page[domainNameStart:domainNameEnd]
     for ID in IDs.keys():
-        if re.match(ID, page, flags=0) != None:
-            IDs[ID].append(domainName)
-            uniqueDomains[domainName] = True
+        if re.match(ID, line, flags=0) != None:
+            IDs[ID].append(domain)
+            uniqueDomains[domain] = True
     for ID in IDStrs.keys():
-        if page.find(ID) != -1:
-            IDStrs[ID].append(domainName)
-            uniqueDomains[domainName] = True
+        if line.find(ID) != -1:
+            IDStrs[ID].append(domain)
+            uniqueDomains[domain] = True
 
 def writeResult(fName, d, d2):
     with open(fName, 'w') as f:
@@ -44,16 +41,16 @@ for i in range(5):
 for i in range(5, len(lines)):
     IDStrs[lines[i].rstrip()] = []
 
-singlePage = ''
+domainName = ''
+
 with open(sys.argv[2]) as infile:
     for line in infile:
-        if line[:7] != '{\"ip\":\"':
-            singlePage += line
-        else:
-            parse(singlePage)
-            singlePage = ''
+        if line[:7] == '{\"ip\":\"':
+            domainNameStart = line.find('domain') + 9
+            domainNameEnd = line.find('\"', domainNameStart)
+            domainName = line[domainNameStart : domainNameEnd]
+        parse(line, domainName)
 
-parse(singlePage)
 
 for k,v in IDs.items():
     IDs[k] = list(set(v))
