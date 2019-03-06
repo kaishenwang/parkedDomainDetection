@@ -8,10 +8,11 @@ errorStr = '\"http\":{}},\"error\":'
 
 def find_all(a_str, sub):
     start = 0
+    res = []
     while True:
         start = a_str.find(sub, start)
         if start == -1: return
-        yield start
+        res.append(start)
         start += len(sub)
 
 def parse(page):
@@ -20,15 +21,17 @@ def parse(page):
     domainNameStart = page.find('domain') + 9
     domainNameEnd = page.find('\"', domainNameStart)
     domainName = page[domainNameStart : domainNameEnd]
-    for beginStr in ['http://','https://']:
-        urlIdxs = list(find_all(beginStr, page))
+   for beginStr in ['http://','https://']:
+        urlIdxs = find_all(beginStr, page)
         for urlIdx in urlIdxs:
+            endIdx = 0
             for i in range(7, 30):
                 endIdx = urlIdx + i
                 if endIdx >= len(page):
                     break
                 if page[endIdx] in endingChars:
                     break
+            print(page[urlIdx : endIdx] + ' ' + domainName)
             URLs[page[urlIdx : endIdx]].append(domainName)
 
 def writeResult(fName, d):
