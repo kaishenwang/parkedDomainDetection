@@ -11,9 +11,10 @@ def find_all(a_str, sub):
     res = []
     while True:
         start = a_str.find(sub, start)
-        if start == -1: return
+        if start == -1: break
         res.append(start)
         start += len(sub)
+    return res
 
 def parse(page):
     if page.find(errorStr) != -1:
@@ -21,8 +22,8 @@ def parse(page):
     domainNameStart = page.find('domain') + 9
     domainNameEnd = page.find('\"', domainNameStart)
     domainName = page[domainNameStart : domainNameEnd]
-   for beginStr in ['http://','https://']:
-        urlIdxs = find_all(beginStr, page)
+    for beginStr in ['http://','https://']:
+        urlIdxs = find_all(page, beginStr)
         for urlIdx in urlIdxs:
             endIdx = 0
             for i in range(7, 30):
@@ -31,7 +32,6 @@ def parse(page):
                     break
                 if page[endIdx] in endingChars:
                     break
-            print(page[urlIdx : endIdx] + ' ' + domainName)
             URLs[page[urlIdx : endIdx]].append(domainName)
 
 def writeResult(fName, d):
