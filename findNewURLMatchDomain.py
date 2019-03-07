@@ -10,7 +10,7 @@ errorStr = '\"http\":{}},\"error\":'
 def parse(line, domain):
     if line.find(errorStr) != -1:
         return
-    for url in URLs():
+    for url in URLs:
         newDomains[url].append(domain)
 
 with open (sys.argv[1]) as f:
