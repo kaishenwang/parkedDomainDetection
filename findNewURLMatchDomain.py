@@ -23,7 +23,7 @@ with open (sys.argv[2]) as f:
     lines = f.readlines()
 for i in range(50):
     line = lines[i]
-    URLs.append(line[:line.find(':')])
+    URLs.append(line[:line.find(':', 7)])
 
 with open(sys.argv[3]) as infile:
     for line in infile:
