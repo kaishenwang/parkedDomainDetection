@@ -1,7 +1,7 @@
 import sys
 from collections import defaultdict
 
-#python findNewURLMatchDomain.py parkedDomains.txt newIDURL.txt  /data1/nsrg/kwang40/fullData/2019-03-03/banners.json
+#python findNewURLMatchDomain.py parkedDomains.txt newID.txt  /data1/nsrg/kwang40/fullData/2019-03-03/banners.json
 URLs = []
 parkedDomains = {}
 newDomains = defaultdict(list)
@@ -23,7 +23,7 @@ with open (sys.argv[2]) as f:
     lines = f.readlines()
 for i in range(50):
     line = lines[i]
-    URLs.append(line[:line.find(':', 7)])
+    URLs.append(line.rstrip())
 
 with open(sys.argv[3]) as infile:
     for line in infile:
