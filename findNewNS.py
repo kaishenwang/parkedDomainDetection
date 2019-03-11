@@ -61,11 +61,10 @@ IDs = [line.rstrip() for line in lines]
 
 
 # find all domains found by ID
-with open('/data1/nsrg/kwang40/fullData/2019-03-03/banner.json') as f:
-    lines = f.readlines()
-for line in lines:
-    if len(line) > 6:
-        parseZgrabJson(line)
+with open('/data1/nsrg/kwang40/fullData/2019-03-03/banners.json') as f:
+    for line in f:
+        if len(line) > 6:
+            parseZgrabJson(line)
 for k,v in allParkedDomains.items():
     allParkedDomains[k] = list(set(v))
 
