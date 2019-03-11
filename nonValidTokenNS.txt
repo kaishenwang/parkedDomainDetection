@@ -1,7 +1,3 @@
-park.i-now.cn
-park.i-now.com
-ns2.expired.homestead.com
-ns1.expired.homestead.com
 sell.midian.cn
 ns2.park.it
 ns1.park.it
