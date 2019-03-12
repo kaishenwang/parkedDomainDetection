@@ -27,10 +27,10 @@ def parseRR(line):
         if hostName not in uniqueDomains or data['status'] == 'NO_ANSWER':
             return
         ts = []
-        if len(data['data']['trace']) > 3:
-            ts.append (data['data']['trace'][-2])
-        if len(data['data']['trace']) > 0:
-            ts.append (data['data']['trace'][-1])
+        if len(data['trace']) > 3:
+            ts.append (data['trace'][-2])
+        if len(data['trace']) > 0:
+            ts.append (data['trace'][-1])
         tmp = {}
         for t in ts:
             for auth in t['results']['authorities']:
@@ -90,6 +90,6 @@ print ('Finish Reading NS.')
 
 sorted_NS = sorted(newNS.items(), key=lambda x: len(x[1]), reverse=True)
 writeResult('newNSbyID.txt', sorted_NS)
-with open('AllDomainCountByID', 'w') as f:
+with open('AllDomainCountByID.txt', 'w') as f:
     for k,v in allParkedDomains.items():
         f.write(k+',' + str(len(v)) + '\n')
