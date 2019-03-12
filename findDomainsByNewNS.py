@@ -52,6 +52,8 @@ with open('newNSbyID.txt') as f:
         count += 1
         if count <= 3:
             continue
+        if count > 53:
+            break
         NSName = line[:line.find(':')]
         domains = line[line.find(':')+1 : ].split(',')
         domainsByNS[NSName] = {}
@@ -66,5 +68,5 @@ with open ('/data1/nsrg/kwang40/fullData/2019-03-03/RR.json') as f:
 for k,v in newDomains.items():
     newDomains[k] = list(set(v))
 
-sorted_Domains = sorted(newDomains.items(), key=lambda x: len(x[1]), reverse=True)
-writeResult('newDomainsByNS.txt', sorted_Domains)
+#sorted_Domains = sorted(newDomains.items(), key=lambda x: len(x[1]), reverse=True)
+writeResult('newDomainsByNSTop50.txt', newDomains.items())
