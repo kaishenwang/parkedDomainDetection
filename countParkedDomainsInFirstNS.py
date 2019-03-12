@@ -39,3 +39,4 @@ for line in lines:
     domainsList = parts[1].split(',')
     for domain in domainsList:
         otherDomains[domain] = True
+print(len(otherDomains))
