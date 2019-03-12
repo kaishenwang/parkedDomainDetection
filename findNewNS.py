@@ -17,13 +17,14 @@ def parseZgrabJson(line):
     for ID in IDs:
         if line.find(ID) != -1:
             allParkedDomains[ID].append(hostName)
+            uniqueDomains[hostName] = False
 
 
 def parseRR(line):
     data = json.loads(line)
     try:
         hostName = data['name']
-        if hostName not in allParkedDomains or data['status'] == 'NO_ANSWER':
+        if hostName not in uniqueDomains or data['status'] == 'NO_ANSWER':
             return
         ts = []
         if len(data['data']['trace']) > 3:
@@ -46,7 +47,12 @@ def parseRR(line):
 
 def writeResult(fName, d):
     with open(fName, 'w') as f:
-        f.write('New Domains Count:' + str(len(uniqueDomains)) + '\n')
+        f.write('All Domains Count:' + str(len(uniqueDomains)) + '\n')
+        countNewDomain = 0
+        for k,v in uniqueDomains.items():
+            if v:
+                countNewDomain += 1
+        f.write('New Domains Count:' + str(countNewDomain) + '\n')
         f.write('New NS Count:' + str(len(d)) + '\n')
         for k,v in d:
             f.write(k + ':')
@@ -85,5 +91,5 @@ print ('Finish Reading NS.')
 sorted_NS = sorted(newNS.items(), key=lambda x: len(x[1]), reverse=True)
 writeResult('newNSbyID.txt', sorted_NS)
 with open('AllDomainCountByID', 'w') as f:
-    for k,v in allParkedDomains:
+    for k,v in allParkedDomains.items():
         f.write(k+',' + str(len(v)) + '\n')
