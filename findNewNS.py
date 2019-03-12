@@ -20,7 +20,7 @@ def parseZgrabJson(line):
 
 
 def parseRR(line):
-    data = json.loads(json_str)
+    data = json.loads(line)
     try:
         hostName = data['name']
         if hostName not in allParkedDomains or data['status'] == 'NO_ANSWER':
@@ -67,6 +67,7 @@ with open('/data1/nsrg/kwang40/fullData/2019-03-03/banners.json') as f:
             parseZgrabJson(line)
 for k,v in allParkedDomains.items():
     allParkedDomains[k] = list(set(v))
+print ('Finish Reading domains.')
 
 # find all NS with special words
 with open ('NSwithSepcialWords.txt') as f:
@@ -79,6 +80,7 @@ with open ('/data1/nsrg/kwang40/fullData/2019-03-03/RR.json') as f:
         parseRR(line)
 for k,v in newNS.items():
     newNS[k] = list(set(v))
+print ('Finish Reading NS.')
 
 sorted_NS = sorted(newNS.items(), key=lambda x: len(x[1]), reverse=True)
 writeResult('newNSbyID.txt', sorted_NS)
