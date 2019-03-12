@@ -3,6 +3,7 @@ from collections import defaultdict
 
 domainsByNS = {}
 uniqueDomains = {}
+validDomains = {}
 newDomains = defaultdict(list)
 def compareStrNoContain(s1, s2):
     return s2.find(s1) == -1
@@ -11,7 +12,7 @@ def parseRR(line):
     data = json.loads(line)
     try:
         hostName = data['name']
-        if hostName not in uniqueDomains or data['status'] == 'NO_ANSWER':
+        if hostName not in validDomains or data['status'] == 'NO_ANSWER':
             return
         ts = []
         if len(data['trace']) > 3:
@@ -41,6 +42,9 @@ def writeResult(fName, d):
             for idx in range(len(v)):
                 f.write(v[idx] + ',')
             f.write('\n')
+with open('validDomains.txt') as f:
+    for line in f:
+        validDomains[line.rstrip()] = True
 
 with open('newNSbyID.txt') as f:
     count = 0
