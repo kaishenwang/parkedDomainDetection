@@ -19,6 +19,8 @@ def parseZgrabJson(line):
             allParkedDomains[ID].append(hostName)
             uniqueDomains[hostName] = False
 
+def compareStrNoContain(s1, s2):
+    return s2.find(s1) == -1
 
 def parseRR(line):
     data = json.loads(line)
@@ -34,9 +36,9 @@ def parseRR(line):
         tmp = {}
         for t in ts:
             for auth in t['results']['authorities']:
-                if auth['name'] != hostName:
+                if compareStrNoContain(auth['name'], hostName):
                     tmp[auth['name']] = True
-                if auth['answer'] != hostName:
+                if compareStrNoContain(auth['answer'], hostName):
                     tmp[auth['answer']] = True
         for dm in tmp.keys():
             if dm not in NSwithSepcialWords:
