@@ -1,0 +1,4 @@
+dns101.registrar-servers.com
+dns102.registrar-servers.com
+ns4.afternic.com
+ns3.afternic.com
