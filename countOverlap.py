@@ -22,9 +22,18 @@ for line in lines:
         if domain in validDomains:
             oldDomains[domain] = True
 
-with open('domainsByOldUsefulID.txt') as f:
-    for line in f:
-        domain = line.rstrip()
+with open('otherNS.txt') as f:
+    lines = f.readlines()
+count = 0
+for line in lines:
+    count += 1
+    if count > 50:
+        break
+    parts = line.rstrip().split(':')
+    if parts[0] in nonValidNS:
+        continue
+    domainsList = parts[1].split(',')
+    for domain in domainsList:
         if domain in validDomains:
             oldDomains[domain] = True
 
@@ -36,4 +45,4 @@ with open('domainsByNewUsefulID.txt') as f:
         domain = line.rstrip()
         if domain in oldDomains:
             overLapCount += 1
-print ('Overlap count is ' + overLapCount)
+print ('Overlap count is ' + str(overLapCount))
