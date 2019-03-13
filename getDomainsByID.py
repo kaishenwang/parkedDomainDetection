@@ -1,3 +1,4 @@
+import sys
 uniqueDomains = {}
 IDs = []
 
@@ -13,7 +14,7 @@ def parseZgrabJson(line):
             uniqueDomains[hostName] = True
 
 #read IDs
-with open('fullID.txt') as f:
+with open(sys.argv[1]) as f:
     lines = f.readlines()
 IDs = [line.rstrip() for line in lines]
 
@@ -23,6 +24,6 @@ with open('/data1/nsrg/kwang40/fullData/2019-03-03/banners.json') as f:
         if len(line) > 6:
             parseZgrabJson(line)
 
-with open('domainsByFullID.txt', 'w') as f:
+with open(sys.argv[2], 'w') as f:
     for domain in uniqueDomains.keys():
         f.write(domain + '\n')
