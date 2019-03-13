@@ -21,8 +21,7 @@ for line in lines:
 
 with open (sys.argv[2]) as f:
     lines = f.readlines()
-for i in range(50):
-    line = lines[i]
+for line in lines:
     URLs.append(line.rstrip())
 
 with open(sys.argv[3]) as infile:
