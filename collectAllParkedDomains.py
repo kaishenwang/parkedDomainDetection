@@ -57,4 +57,5 @@ with open ('newDomainsByNSTop50.txt') as f:
 
 with open('fullParkedDomains.txt', 'w') as f:
     for domain in uniqueDomains.keys():
-        f.write(domain + '\n')
+        if domain in validDomains:
+            f.write(domain + '\n')
