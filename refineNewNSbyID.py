@@ -9,9 +9,9 @@ with open('newNSbyID.txt') as f:
             print('First 50 NS contains: ' + str(countDomains))
         NSName = line[:line.find(':')]
         outLine = NSName + ':'
-        domains = split(line[line.find(':')+1 : ], ',')
+        domains = line[line.find(':')+1 : ].split(',')
         for domain in domains:
-            if domain[-NSName:] == domain:
+            if domain[-len(NSName):] == domain:
                 continue
             outLine += domain + ','
             if domain not in uniqueDomains:

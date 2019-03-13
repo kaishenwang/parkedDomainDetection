@@ -21,7 +21,7 @@ for line in lines:
         uniqueDomains[domain] = True
 
 # Other NS
-with open(otherNSFName) as f:
+with open('otherNS.txt') as f:
     lines = f.readlines()
 count = 0
 for line in lines:
