@@ -1,7 +1,7 @@
 import sys
 from collections import defaultdict
 
-#python findNewURLMatchDomain.py parkedDomains.txt newID.txt  /data1/nsrg/kwang40/fullData/2019-03-03/banners.json
+#python findNewURLMatchDomain.py parkedDomains.txt newID.txt  /data1/nsrg/kwang40/fullData/2019-03-03/banners.json newURLMatchDomains.txt
 URLs = []
 parkedDomains = {}
 newDomains = defaultdict(list)
@@ -37,7 +37,7 @@ with open(sys.argv[3]) as infile:
 for k,v in newDomains.items():
     newDomains[k] = list(set(v))
 
-with open ('newURLMatchDomains.txt', 'w') as f:
+with open (sys.argv[4], 'w') as f:
     for url in URLs:
         f.write(url + ':')
         for domain in newDomains[url]:
